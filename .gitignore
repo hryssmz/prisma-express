@@ -4,3 +4,7 @@ node_modules/
 
 .env
 core
+
+prisma/dev.db
+prisma/migrations/*
+!prisma/migrations/migration_lock.toml
