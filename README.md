@@ -99,6 +99,14 @@ npm install -D @types/passport @types/passport-local
 npm install @quixo3/prisma-session-store
 ```
 
+### 1.12. express-validator
+
+---
+
+```bash
+npm install express-validator
+```
+
 ## 2. Dev
 
 ---

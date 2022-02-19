@@ -17,7 +17,7 @@ html(lang="en")
               button.logout(type="submit") Sign out
       header.header
         h1 todos
-        form(action="/", method="post")
+        form(action="/new", method="post")
           input.new-todo(
             name="title",
             placeholder="What needs to be done?",
@@ -35,6 +35,8 @@ html(lang="en")
               onchange="this.form.submit();"
             )
             label(for="toggle-all") Mark all as complete
+            if filter
+              input(type="hidden", name="filter", value=filter)
           ul.todo-list
             each todo in todos
               li(class=todo.completed ? "completed" : "")
