@@ -1,0 +1,101 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Express • TodoMVC
+    link(rel="stylesheet", href="/css/base.css")
+    link(rel="stylesheet", href="/css/index.css")
+    link(rel="stylesheet", href="/css/app.css")
+  body
+    section.todoapp
+      nav.nav
+        ul
+          li.user #{ user.name || user.username || user.email }
+          li
+            form(action="/logout", method="post")
+              button.logout(type="submit") Sign out
+      header.header
+        h1 todos
+        form(action="/", method="post")
+          input.new-todo(
+            name="title",
+            placeholder="What needs to be done?",
+            autofocus
+          )
+          if filter
+            input(type="hidden", name="filter", value=filter)
+      if activeCount + completedCount > 0
+        section.main
+          form(action="/toggle-all", method="post")
+            input#toggle-all.toggle-all(
+              type="checkbox",
+              name="completed",
+              checked=activeCount === 0,
+              onchange="this.form.submit();"
+            )
+            label(for="toggle-all") Mark all as complete
+          ul.todo-list
+            each todo in todos
+              li(class=todo.completed ? "completed" : "")
+                form(action=todo.url, method="post")
+                  .view
+                    input.toggle(
+                      type="checkbox",
+                      name="completed",
+                      checked=todo.completed,
+                      onchange="this.form.submit();"
+                    )
+                    label(
+                      ondblclick=`
+                        this.closest("li").className = this.closest("li").className + " editing";
+                        this.closest("li").querySelector("input.edit").focus();
+                        this.closest("li").querySelector("input.edit").value = "";
+                        this.closest("li").querySelector("input.edit").value = "${todo.title}";
+                      `
+                    )= todo.title
+                    button.destroy(form=`delete-${todo.id}`)
+                  input.edit(
+                    name="title",
+                    value=todo.title,
+                    onkeyup=`
+                      if (event.keyCode === 27) {
+                        this.setAttribute("data-esc", "");
+                        this.closest("li").className = this.closest("li").className.replace("editing", "");
+                      }
+                    `,
+                    onblur=`
+                      if (this.getAttribute("data-esc") !== null) {
+                        return this.removeAttribute("data-esc");
+                      }
+                      this.form.submit();
+                    `
+                  )
+                  if filter
+                    input(type="hidden", name="filter", value=filter)
+                form(
+                  id=`delete-${todo.id}`,
+                  action=`${todo.url}/delete`,
+                  method="post"
+                )
+                  if filter
+                    input(type="hidden", name="filter", value=filter)
+        footer.footer
+          span.todo-count #[strong= activeCount] #{ activeCount === 1 ? "item" : "items" } left
+          ul.filters
+            li
+              a(class=!filter ? "selected" : "", href="/") All
+            li
+              a(class=filter === "active" ? "selected" : "", href="/active") Active
+            li
+              a(class=filter === "completed" ? "selected" : "", href="/completed") Completed
+          if completedCount > 0
+            form(action="/clear-completed", method="post")
+              button.clear-completed Clear completed
+              if filter
+                input(type="hidden", name="filter", value=filter)
+    footer.info
+      p Double-click to edit a todo
+      p Created by #[a(href="https://www.jaredhanson.me") Jared Hanson]
+      p Part of #[a(href="https://todomvc.com") TodoMVC]
+      p Authentication powered by #[a(href="https://www.passportjs.org") Passport]

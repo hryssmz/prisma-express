@@ -1,9 +1,12 @@
 import path from "path";
 import express, { Request, Response, NextFunction } from "express";
+import session from "express-session";
 import createError, { HttpError } from "http-errors";
 import logger from "morgan";
+import passport from "passport";
 
 import { NODE_ENV } from "./utils/env";
+import { sessionOptions } from "./utils/session";
 import indexRouter from "./routes";
 
 const app = express();
@@ -18,6 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Setup static assets.
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+// Setup session.
+app.use(session(sessionOptions));
+app.use(passport.authenticate("session"));
 
 // Setup logger.
 app.use(logger("dev"));

@@ -91,6 +91,14 @@ npm install passport passport-local
 npm install -D @types/passport @types/passport-local
 ```
 
+### 1.11. prisma-session-store
+
+---
+
+```bash
+npm install @quixo3/prisma-session-store
+```
+
 ## 2. Dev
 
 ---
