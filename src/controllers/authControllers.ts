@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 
 import prisma from "../utils/prisma";
-import { localStrategy } from "../utils/password";
+import { localStrategy, generateUser } from "../utils/password";
 
 passport.use(localStrategy);
 
@@ -28,3 +28,28 @@ export const loginPassword = passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/login",
 });
+
+export const logout = (req: Request, res: Response) => {
+  req.logout();
+  return res.redirect("/");
+};
+
+export const signupGet = async (req: Request, res: Response) => {
+  return res.render("signup");
+};
+
+export const signup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id, username } = await generateUser(
+    req.body.username,
+    req.body.password
+  );
+  const expressUser: Express.User = { id, username };
+  return req.login(expressUser, err => {
+    if (err) return next(err);
+    return res.redirect("/");
+  });
+};

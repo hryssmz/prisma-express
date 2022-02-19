@@ -36,3 +36,11 @@ export const localStrategy = new LocalStrategy(
     return callback(null, expressUser);
   }
 );
+
+export const generateUser = async (username: string, password: string) => {
+  const salt = generateSalt();
+  const user = await prisma.user.create({
+    data: { username, hashedPassword: getHashedPassword(password, salt), salt },
+  });
+  return user;
+};
