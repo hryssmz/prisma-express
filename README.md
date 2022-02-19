@@ -29,3 +29,84 @@ npm install -D typescript ts-node @types/node
 npm install express
 npm install -D @types/express
 ```
+
+### 1.4. CryptoJS
+
+---
+
+```bash
+npm install crypto-js
+npm install -D @types/crypto-js
+```
+
+### 1.5. Pug
+
+---
+
+```bash
+npm install pug
+```
+
+### 1.6. HTTP errors
+
+---
+
+```bash
+npm install http-errors
+npm install -D @types/http-errors
+```
+
+### 1.7. express-session
+
+---
+
+```bash
+npm install express-session
+npm install -D @types/express-session
+```
+
+### 1.8. morgan
+
+---
+
+```bash
+npm install morgan
+npm install -D @types/morgan
+```
+
+### 1.9. dotenv
+
+---
+
+```bash
+npm install dotenv
+```
+
+## 2. Dev
+
+---
+
+### 2.1. Prettier
+
+---
+
+```bash
+npm install -D prettier @prettier/plugin-pug prettier-plugin-sh
+```
+
+### 2.2. ESLint
+
+---
+
+```bash
+npm install -D eslint eslint-config-prettier eslint-plugin-import @typescript-eslint/eslint-plugin
+```
+
+## 3. `.env` Template
+
+```bash
+# .env
+NODE_ENV=development
+HOST=
+PORT=3000
+```
