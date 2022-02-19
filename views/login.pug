@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Express • TodoMVC
+    link(rel="stylesheet", href="/css/base.css")
+    link(rel="stylesheet", href="/css/index.css")
+    link(rel="stylesheet", href="/css/login.css")
+  body
+    section.prompt
+      h3 todos
+      h1 Sign in
+      form(action="/login/password", method="post")
+        section
+          label(for="username") Username
+          input#username(
+            name="username",
+            autocomplete="username",
+            required,
+            autofocus
+          )
+        section
+          label(for="current-password") Password
+          input#current-password(
+            name="password",
+            type="password",
+            autocomplete="current-password",
+            required
+          )
+        button(type="submit") Sign in
+      hr
+      p.help Don't have an account? #[a(href="/signup") Sign up]
+    footer.info
+      p Created by #[a(href="https://www.jaredhanson.me") Jared Hanson]
+      p Part of #[a(href="https://todomvc.com") TodoMVC]
+      p Authentication powered by #[a(href="https://www.passportjs.org") Passport]

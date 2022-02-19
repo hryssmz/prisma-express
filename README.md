@@ -82,6 +82,15 @@ npm install -D @types/morgan
 npm install dotenv
 ```
 
+### 1.10. passport
+
+---
+
+```bash
+npm install passport passport-local
+npm install -D @types/passport @types/passport-local
+```
+
 ## 2. Dev
 
 ---
